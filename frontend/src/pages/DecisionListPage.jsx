@@ -34,7 +34,7 @@ function DecisionListPage() {
 
   return (
     <section>
-      <h2>Decision Log</h2>
+      <h2 className="section-title">Decision Log</h2>
       <p className="muted">Track decisions and learn from real outcomes.</p>
 
       <DecisionFilters
@@ -53,19 +53,23 @@ function DecisionListPage() {
         </div>
       )}
 
-      {!loading &&
-        !error &&
-        decisions.map((decision) => (
-          <article key={decision.id} className="card">
-            <div className="row" style={{ justifyContent: 'space-between' }}>
-              <h3 style={{ margin: 0 }}>{decision.title}</h3>
-              <span>Confidence: {decision.confidence_level}/5</span>
-            </div>
-            <p>{decision.context}</p>
-            <p className="muted">Outcome: {decision.outcome?.result || 'Not reviewed yet'}</p>
-            <Link to={`/decisions/${decision.id}`}>View details</Link>
-          </article>
-        ))}
+      {!loading && !error && (
+        <div className="list-stack">
+          {decisions.map((decision) => (
+            <article key={decision.id} className="card">
+              <div className="row between">
+                <h3>{decision.title}</h3>
+                <span className="meta-text muted">Confidence: {decision.confidence_level}/5</span>
+              </div>
+              <p>{decision.context}</p>
+              <p className="muted meta-text">Outcome: {decision.outcome?.result || 'Not reviewed yet'}</p>
+              <Link className="item-link" to={`/decisions/${decision.id}`}>
+                View details
+              </Link>
+            </article>
+          ))}
+        </div>
+      )}
     </section>
   )
 }

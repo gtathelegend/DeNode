@@ -52,30 +52,34 @@ function DecisionDetailPage() {
     return (
       <section>
         <p className="error">{error}</p>
-        <Link to="/">Back to decisions</Link>
+        <Link className="item-link" to="/">
+          Back to decisions
+        </Link>
       </section>
     )
   }
 
   return (
     <section>
-      <Link to="/">← Back to decisions</Link>
+      <Link className="item-link" to="/">
+        ← Back to decisions
+      </Link>
 
       <article className="card spaced">
-        <h2>{decision.title}</h2>
+        <h2 className="section-title">{decision.title}</h2>
         <p>{decision.context}</p>
         {decision.options_considered && (
           <p>
             <strong>Options considered:</strong> {decision.options_considered}
           </p>
         )}
-        <p className="muted">Confidence: {decision.confidence_level}/5</p>
-        <p className="muted">Created: {new Date(decision.created_at).toLocaleString()}</p>
+        <p className="muted meta-text">Confidence: {decision.confidence_level}/5</p>
+        <p className="muted meta-text">Created: {new Date(decision.created_at).toLocaleString()}</p>
       </article>
 
       {decision.outcome ? (
         <article className="card">
-          <h3>Outcome</h3>
+          <h3 className="section-title">Outcome</h3>
           <p>
             <strong>Result:</strong> {decision.outcome.result}
           </p>
@@ -85,14 +89,17 @@ function DecisionDetailPage() {
           <p>
             <strong>Lessons:</strong> {decision.outcome.lessons_learned}
           </p>
-          <p className="muted">Reviewed: {new Date(decision.outcome.reviewed_at).toLocaleString()}</p>
+          <p className="muted meta-text">Reviewed: {new Date(decision.outcome.reviewed_at).toLocaleString()}</p>
         </article>
       ) : (
-        <OutcomeForm
-          onSubmit={handleOutcomeSubmit}
-          submitting={savingOutcome}
-          serverError={outcomeError}
-        />
+        <>
+          <p className="muted">No outcome recorded yet. Add one when this decision has played out.</p>
+          <OutcomeForm
+            onSubmit={handleOutcomeSubmit}
+            submitting={savingOutcome}
+            serverError={outcomeError}
+          />
+        </>
       )}
     </section>
   )

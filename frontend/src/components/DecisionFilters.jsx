@@ -2,7 +2,7 @@ import React from 'react'
 
 function DecisionFilters({ outcome, confidenceLevel, onChange }) {
   return (
-    <div className="card row">
+    <div className="card filter-grid">
       <div>
         <label htmlFor="outcome">Outcome</label>
         <select
